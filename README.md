@@ -17,4 +17,4 @@ This project shows the preferred venues of explorers around the world. Any expor
 
 ## GitHub link
 
-- https://miguelgonzalezcruz.github.io/web_project_4/
+- https://miguelgonzalezcruz.github.io/se_project_aroundtheus/
