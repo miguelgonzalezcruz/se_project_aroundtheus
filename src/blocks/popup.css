@@ -17,7 +17,6 @@
 .popup__content {
   position: relative;
   flex-direction: column;
-  position: relative;
   box-sizing: border-box;
   background-color: #fff;
   max-width: 430px;
@@ -59,13 +58,7 @@ max-height: 181px;
   right: -5px;
 }
 
-.popup__content-title {
-  margin: 0;
-  font-weight: 900;
-  font-size: 24px;
-  line-height: 29px;
-  color: #000;
-}
+
 
 
 
