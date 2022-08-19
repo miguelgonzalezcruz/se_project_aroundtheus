@@ -23,7 +23,7 @@ const formEditProfile = document.querySelector(".popup__content-form");
 const formAvatarEdit = document.querySelector(".popup__avatar-form");
 const avatarEditButton = document.querySelector(".profile__avatar-edit");
 const avatarPopupElement = document.querySelector(".avatar-popup");
-const deletePopupElement = document.querySelector(".delete-popup");
+// const deletePopupElement = document.querySelector(".delete-popup");
 
 // --------------- New Card Const ----------------------------------------------
 const profileAddButton = document.querySelector(".profile__add");
@@ -96,15 +96,23 @@ function renderCard(cardSection, data, imagePopup, confirmDeletePopup) {
     },
     () => {
       if (cardObject.isLiked()) {
-        api.removeNewLikes(data._id).then((response) => {
-          console.log(response);
-          cardObject.setLikes(response.likes);
-        });
+        api
+          .removeNewLikes(data._id)
+          .then((response) => {
+            cardObject.setLikes(response.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       } else {
-        api.addNewLikes(data._id).then((response) => {
-          console.log(response);
-          cardObject.setLikes(response.likes);
-        });
+        api
+          .addNewLikes(data._id)
+          .then((response) => {
+            cardObject.setLikes(response.likes);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
     () => {
@@ -114,9 +122,12 @@ function renderCard(cardSection, data, imagePopup, confirmDeletePopup) {
           .deleteCard(data._id)
           .then(() => {
             cardObject.handleDelete();
+            confirmDeletePopup.closePopupWindow();
+          })
+          .catch((err) => {
+            console.log(err);
           })
           .finally(() => confirmDeletePopup.loadingText(false));
-        confirmDeletePopup.closePopupWindow();
       });
       confirmDeletePopup.openPopupWindow();
     }
@@ -135,8 +146,11 @@ const addNewCard = new PopupWithForm({
     api
       .postNewCard(data)
       .then((data) => {
-        renderCard(placesGrid, data);
+        renderCard(placesGrid, data, imagePopup, confirmDeletePopup);
         addNewCard.closePopupWindow();
+      })
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => addNewCard.loadingText(false));
   },
@@ -157,6 +171,9 @@ const editProfile = new PopupWithForm({
           userNewAvatarInput: data.avatar,
         });
       })
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => editProfile.loadingText(false));
     editProfile.closePopupWindow();
   },
@@ -175,6 +192,9 @@ const editProfilePicture = new PopupWithForm({
           userNewAvatarInput: data.avatar,
         });
       })
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => editProfilePicture.loadingText(false));
     editProfilePicture.closePopupWindow();
   },
@@ -185,12 +205,10 @@ editProfilePicture.setEventListeners();
 const editFormValidator = new FormValidator(constants, editPopupElement);
 const addFormValidator = new FormValidator(constants, createPopupElement);
 const avatarFormValidator = new FormValidator(constants, avatarPopupElement);
-const deleteFormValidator = new FormValidator(constants, deletePopupElement);
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
-deleteFormValidator.enableValidation();
 
 profileAddButton.addEventListener("click", () => {
   addNewCard.openPopupWindow();

@@ -8,28 +8,23 @@ class Api {
     this._headers = info.headers;
   }
 
+  _checkResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  };
+
   getUserInfo() {
     return fetch(this._url + "/users/me", {
       headers: this._headers,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   getInitialCards() {
     return fetch(this._url + "/cards", {
       headers: this._headers,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   editUserInfo(data) {
@@ -40,13 +35,7 @@ class Api {
         name: data.name,
         about: data.about,
       }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   editUserPicture(data) {
@@ -56,13 +45,7 @@ class Api {
       body: JSON.stringify({
         avatar: data.avatar,
       }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   postNewCard(data) {
@@ -73,51 +56,27 @@ class Api {
         name: data.name,
         link: data.link,
       }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
   addNewLikes(cardId) {
     return fetch(this._url + "/cards/likes/" + cardId, {
       method: "PUT",
       headers: this._headers,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   removeNewLikes(cardId) {
     return fetch(this._url + "/cards/likes/" + cardId, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 
   deleteCard(cardId) {
     return fetch(this._url + "/cards/" + cardId, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then(this._checkResponse);
   }
 }
 
