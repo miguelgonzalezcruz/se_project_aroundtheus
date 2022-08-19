@@ -6,6 +6,7 @@ class PopupWithConfirmation extends Popup {
     this._handleFormSubmit;
     this._form = this._popup.querySelector(".popup__form");
     this._submitButton = this._form.querySelector(".popup__button");
+    this._normalButtonText = this._submitButton.textContent;
   }
 
   confirmDelete(confirmation) {
@@ -20,19 +21,9 @@ class PopupWithConfirmation extends Popup {
     });
   }
 
-  closePopupWindow() {
-    super.closePopupWindow();
-    this._form.reset();
-  }
-
-  openPopupWindow() {
-    this._form.reset();
-    super.openPopupWindow();
-  }
-
   loadingText(isLoading) {
     if (isLoading === true) {
-      this._submitButton.textContent = "Loading ...";
+      this._submitButton.textContent = "Deleting ...";
     } else {
       this._submitButton.textContent = this._normalButtonText;
     }

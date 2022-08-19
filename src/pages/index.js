@@ -62,7 +62,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([data, cards]) => {
     userId = data._id;
     console.log(data);
-    user.addUserInfo({
+    user.setUserInfo({
       userNewNameInput: data.name,
       userNewJobInput: data.about,
       userNewAvatarInput: data.avatar,
@@ -165,17 +165,17 @@ const editProfile = new PopupWithForm({
     api
       .editUserInfo(data)
       .then((data) => {
-        user.addUserInfo({
+        user.setUserInfo({
           userNewNameInput: data.name,
           userNewJobInput: data.about,
           userNewAvatarInput: data.avatar,
         });
+        editProfile.closePopupWindow();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => editProfile.loadingText(false));
-    editProfile.closePopupWindow();
   },
 });
 
@@ -188,15 +188,17 @@ const editProfilePicture = new PopupWithForm({
     api
       .editUserPicture(data)
       .then((data) => {
-        user.addUserAvatar({
+        user.setUserInfo({
+          userNewNameInput: data.name,
+          userNewJobInput: data.about,
           userNewAvatarInput: data.avatar,
         });
+        editProfilePicture.closePopupWindow();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => editProfilePicture.loadingText(false));
-    editProfilePicture.closePopupWindow();
   },
 });
 

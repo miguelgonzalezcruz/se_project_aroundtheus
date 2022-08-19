@@ -5,13 +5,9 @@ class UserInfo {
     this._userAvatarElement = document.querySelector(userAvatarInput);
   }
 
-  addUserInfo({ userNewNameInput, userNewJobInput, userNewAvatarInput }) {
+  setUserInfo({ userNewNameInput, userNewJobInput, userNewAvatarInput }) {
     this._userNameElement.textContent = userNewNameInput;
     this._userJobElement.textContent = userNewJobInput;
-    this._userAvatarElement.src = userNewAvatarInput;
-  }
-
-  addUserAvatar({ userNewAvatarInput }) {
     this._userAvatarElement.src = userNewAvatarInput;
   }
 

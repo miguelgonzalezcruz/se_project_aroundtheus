@@ -8,7 +8,6 @@ class PopupWithForm extends Popup {
     this._inputList = this._form.querySelectorAll(".popup__input");
     this._submitButton = this._form.querySelector(".popup__button");
     this._normalButtonText = this._submitButton.textContent;
-    this._submitButtonText = this._submitButton.value;
   }
 
   _getInputValues() {
@@ -36,11 +35,6 @@ class PopupWithForm extends Popup {
   closePopupWindow() {
     super.closePopupWindow();
     this._form.reset();
-  }
-
-  openPopupWindow() {
-    super.openPopupWindow();
-    this._submitButton.value = this._submitButtonText;
   }
 
   loadingText(isLoading) {
